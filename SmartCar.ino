@@ -1,4 +1,4 @@
-/*
+﻿/*
 buletooth car 
 This sketch is written for buletooth car.The version 1.0 was created on 28 October 2015.
 
@@ -17,11 +17,10 @@ bluetooth shield
  created 28 October 2015
  by Yu Hui
 */
-String command;
 char charreceive;
-int mark,flag,len;
+int mark;
 //小电机请将数值调小
-int speed1=50;//小车速度控制0~255，数值越大，速度越快
+int speed1=100;//小车速度控制0~255，数值越大，速度越快
 int pwm1 = 5;
 int pwm2 = 6;
 int dir1 = 4;
@@ -46,47 +45,39 @@ void setup() {
   pinMode(dir2,OUTPUT);
   pinMode(13,OUTPUT);
   digitalWrite(13, HIGH);   // turn the LED on (HIGH is the voltage level)
-  delay(500);              // wait for a second
+  delay(200);              // wait for a second
   digitalWrite(13, LOW);    // turn the LED off by making the voltage LOW
-  delay(500);              // wait for a second
-   digitalWrite(13, HIGH);   // turn the LED on (HIGH is the voltage level)
-  delay(500);              // wait for a second
+  delay(200);              // wait for a second
+  digitalWrite(13, HIGH);   // turn the LED on (HIGH is the voltage level)
+  delay(200);              // wait for a second
   digitalWrite(13, LOW);    // turn the LED off by making the voltage LOW
-  delay(500);              // wait for a second
-   digitalWrite(13, HIGH);   // turn the LED on (HIGH is the voltage level)
-  delay(500);              // wait for a second
+  delay(200);              // wait for a second
+  digitalWrite(13, HIGH);   // turn the LED on (HIGH is the voltage level)
+  delay(200);              // wait for a second
   digitalWrite(13, LOW);    // turn the LED off by making the voltage LOW
-  delay(500);              // wait for a second
+  delay(200);              // wait for a second
    //闪三次灯，表示程序开始运行
   Serial.begin(9600);
   Serial.println("Xmaker_Car begin...");
   delay(500);
-
- 
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
   
-  while(Serial.available())
+  if(Serial.available())
    {
-     charreceive=char(Serial.read());
-     command+=charreceive;
-    delay(2);
-    mark=1;
-   }
-
-    if (mark == 1) {
-      Serial.println("get:"+command);
-      len=command.length();
-      delayMicroseconds(10);
-      if(charreceive=='8')goforward();
-      if(charreceive=='4')goleft();
-      if(charreceive=='6')goright();
-      if(charreceive=='2')goback();
-      if(charreceive=='5')stopcommand();
-      charreceive=' ';
-      command="";
+    charreceive=char(Serial.read());
+    Serial.println("get:"+charreceive);     
+    switch(charreceive)
+    {
+      case '8':goforward();break;
+      case '4':goleft();break;
+      case '6':goright();break;
+      case '2':goback();break;
+      case '5':stopcommand();break;
+      default:Serial.println("error");
+     }
     }
 
 }
@@ -119,5 +110,4 @@ void stopcommand(){
  analogWrite(pwm1,0);
  analogWrite(pwm2,0);
 }
-
 
