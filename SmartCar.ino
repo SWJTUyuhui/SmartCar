@@ -18,7 +18,6 @@ bluetooth shield
  by Yu Hui
 */
 char charreceive;
-int mark;
 //小电机请将数值调小
 int speed1=100;//小车速度控制0~255，数值越大，速度越快
 int pwm1 = 5;
@@ -31,13 +30,6 @@ void goleft();
 void goright();
 void goback();
 void stopcommand();
-void moto31();//motor3 rotation
-void moto32();//motor3 rollback
-void moto41();//motor4 rotation
-void moto42();//motor4 rollback
-void moto51();//motor4 rotation
-void moto52();//motor4 rollback
-void moto6();//motor5 
 
 void setup() {
   // put your setup code here, to run once: 
@@ -110,4 +102,5 @@ void stopcommand(){
  analogWrite(pwm1,0);
  analogWrite(pwm2,0);
 }
+
 
